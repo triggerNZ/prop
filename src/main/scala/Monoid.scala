@@ -11,6 +11,11 @@ object Monoid {
     def append(a: List[T], b: List[T]) = a ++ b
   }
 
+  implicit val stringMonoid: Monoid[String] = new Monoid[String] {
+    def identity = ""
+    def append(a: String, b: String) = a ++ b
+  }
+
   implicit class MonoidSyntax[T : Monoid](m: T) {
     def +++(other: T) = implicitly[Monoid[T]].append(m, other)
   }
